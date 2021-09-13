@@ -114,67 +114,65 @@
 
 <script>
 export default {
-  name: "Todo",
-  
-  data() {
+  name: 'Todo',
+
+  data () {
     return {
-      newTodo: "",
+      newTodo: '',
       todos: [],
       all: true,
       active: false,
       completed: false
-    };
+    }
   },
 
   methods: {
-    addTodo() {
+    addTodo () {
       this.todos.push({
         title: this.newTodo,
         completed: false
-      });
-      this.newTodo = "";
+      })
+      this.newTodo = ''
     },
-    removeTodo(todo) {
-      const todoIdx = this.todos.indexOf(todo);
-      this.todos.splice(todoIdx, 1);
+    removeTodo (todo) {
+      const todoIdx = this.todos.indexOf(todo)
+      this.todos.splice(todoIdx, 1)
     },
-    allTodos() {
-      this.all = true;
-      this.active = false;
-      this.completed = false;
+    allTodos () {
+      this.all = true
+      this.active = false
+      this.completed = false
     },
-    activeTodos() {
-      this.all = false;
-      this.active = true;
-      this.completed = false;
+    activeTodos () {
+      this.all = false
+      this.active = true
+      this.completed = false
     },
-    completedTodos() {
-      this.all = false;
-      this.active = false;
-      this.completed = true;
+    completedTodos () {
+      this.all = false
+      this.active = false
+      this.completed = true
     },
-    allDone() {
-      this.todos.forEach(todo => (todo.completed = true));
+    allDone () {
+      this.todos.forEach(todo => (todo.completed = true))
     },
-    clearAllCompleted() {
-      const uncompletedTodos = this.todos.filter(todo => !todo.completed);
-      this.todos = uncompletedTodos;
+    clearAllCompleted () {
+      const uncompletedTodos = this.todos.filter(todo => !todo.completed)
+      this.todos = uncompletedTodos
     }
   }
-};
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-
 <style>
-body {
-  padding: 50px;
-}
-.delete-position {
-  position: absolute;
-  right: 70px;
-}
-.completed {
-  text-decoration: line-through;
-}
+  body {
+    padding: 50px;
+  }
+  .delete-position {
+    position: absolute;
+    right: 70px;
+  }
+  .completed {
+    text-decoration: line-through;
+  }
 </style>
