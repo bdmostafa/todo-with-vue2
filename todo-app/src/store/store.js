@@ -11,22 +11,46 @@ export default new Vuex.Store({
     active: false,
     completed: false
   },
-  mutations: {
-    GET_TODO (state, todo) {
-      state.newTodo = todo
+  getters: {
+    newTodo: state => state.newTodo,
+    all: state => state.all,
+    active: state => state.active,
+    completed: state => state.completed
+  },
+  actions: {
+    addTodo ({ commit }, payload) {
+      commit('ADD_TODO', payload)
     },
-    ADD_TODO (state) {
+    removeTodo ({ commit }, todo) {
+      commit('REMOVE_TODO', todo)
+    },
+    allTodos ({ commit }) {
+      commit('ALL_TODOS')
+    },
+    activeTodos ({ commit }) {
+      commit('ACTIVE_TODOS')
+    },
+    completedTodos ({ commit }) {
+      commit('COMPLETED_TODOS')
+    },
+    allDone ({ commit }) {
+      commit('ALL_DONE')
+    },
+    clearAllCompleted ({ commit }) {
+      commit('CLEAR_ALL_COMPLETED')
+    },
+    clearInputTodo ({ commit }) {
+      commit('CLEAR_INPUT_TODO')
+    }
+  },
+  mutations: {
+    ADD_TODO (state, payload) {
+      console.log(payload)
       state.todos.push({
         title: state.newTodo,
         completed: false
       })
     },
-    // EDIT_TODO(state, todo) {
-    //   var todos = state.todos;
-    //   todos.splice(todos.indexOf(todo), 1);
-    //   state.todos = todos;
-    //   state.newTodo = todo.body;
-    // },
     REMOVE_TODO (state, todo) {
       var todos = state.todos
       todos.splice(todos.indexOf(todo), 1)
@@ -52,46 +76,9 @@ export default new Vuex.Store({
     CLEAR_ALL_COMPLETED (state) {
       const uncompletedTodos = state.todos.filter(todo => !todo.completed)
       state.todos = uncompletedTodos
+    },
+    CLEAR_INPUT_TODO (state) {
+      state.newTodo = ''
     }
-  },
-  actions: {
-    getTodo ({ commit }, todo) {
-      commit('GET_TODO', todo)
-    },
-    addTodo ({ commit }) {
-      commit('ADD_TODO')
-    },
-    removeTodo ({ commit }, todo) {
-      commit('REMOVE_TODO', todo)
-    },
-    allTodos ({ commit }) {
-      commit('ALL_TODOS')
-    },
-    activetodos ({ commit }) {
-      commit('ACTIVE_TODOS')
-    },
-    completedTodos ({ commit }) {
-      commit('COMPLETED_TODOS')
-    },
-    allDone ({ commit }) {
-      commit('ALL_DONE')
-    },
-    clearAllCompleted ({ commit }) {
-      commit('CLEAR_ALL_COMPLETED')
-    }
-  },
-  getters: {
-    newTodo: state => state.newTodo,
-    todos: state => state.todos,
-    all: state => state.all,
-    active: state => state.active,
-    completed: state => state.completed
-    //   state.todos.filter(todo => {
-    //     return !todo.completed;
-    //   }),
-    // completedTodos: state =>
-    //   state.todos.filter(todo => {
-    //     return todo.completed;
-    //   })
   }
 })

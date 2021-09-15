@@ -9,7 +9,6 @@
           type="text"
           name="newTodo"
           id="newTodo"
-          value=""
           placeholder="Add todo"
         />
         <button
@@ -113,53 +112,103 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Todo',
 
-  data () {
-    return {
-      newTodo: '',
-      todos: [],
-      all: true,
-      active: false,
-      completed: false
-    }
+  // data () {
+  //   return {
+  //     newTodo: '',
+  //     todos: [],
+  //     all: true,
+  //     active: false,
+  //     completed: false
+  //   }
+  // },
+  computed: {
+    // newTodo: {
+    //   get () {
+    //     return this.$store.state.newTodo
+    //   },
+    //   set (value) {
+    //     this.$store.commit('addTodo', value)
+    //   }
+    // },
+    todos () {
+      return this.$store.state.todos
+    },
+    // newTodo () {
+    //   return this.$store.getters.newTodo
+    // },
+    // all () {
+    //   return this.$store.getters.all
+    // },
+    // active () {
+    //   return this.$store.getters.active
+    // },
+    // completed () {
+    //   return this.$store.getters.completed
+    // }
+    ...mapGetters([
+      'newTodo',
+      'all',
+      'active',
+      'completed'
+    ])
   },
-
   methods: {
-    addTodo () {
-      this.todos.push({
-        title: this.newTodo,
-        completed: false
-      })
-      this.newTodo = ''
-    },
-    removeTodo (todo) {
-      const todoIdx = this.todos.indexOf(todo)
-      this.todos.splice(todoIdx, 1)
-    },
-    allTodos () {
-      this.all = true
-      this.active = false
-      this.completed = false
-    },
-    activeTodos () {
-      this.all = false
-      this.active = true
-      this.completed = false
-    },
-    completedTodos () {
-      this.all = false
-      this.active = false
-      this.completed = true
-    },
-    allDone () {
-      this.todos.forEach(todo => (todo.completed = true))
-    },
-    clearAllCompleted () {
-      const uncompletedTodos = this.todos.filter(todo => !todo.completed)
-      this.todos = uncompletedTodos
-    }
+    ...mapActions([
+      'addTodo',
+      'removeTodo',
+      'allTodos',
+      'activeTodos',
+      'completedTodos',
+      'allDone',
+      'clearAllCompleted'
+    ])
+    // addTodo () {
+    //   this.$store.dispatch('addTodo')
+    //   this.$store.dispatch('clearInputTodo')
+    //   // this.todos.push({
+    //   //   title: this.newTodo,
+    //   //   completed: false
+    //   // })
+    //   // this.newTodo = ''
+    // },
+    // removeTodo (todo) {
+    //   this.$store.dispatch('removeTodo', todo)
+    //   // const todoIdx = this.todos.indexOf(todo)
+    //   // this.todos.splice(todoIdx, 1)
+    // },
+    // allTodos () {
+    //   this.$store.dispatch('allTodos')
+    //   // this.all = true
+    //   // this.active = false
+    //   // this.completed = false
+    // },
+    // activeTodos () {
+    //   this.$store.dispatch('activeTodos')
+    //   // this.all = false
+    //   // this.active = true
+    //   // this.completed = false
+    // },
+    // completedTodos () {
+    //   this.$store.dispatch('completedTodos')
+    //   // this.all = false
+    //   // this.active = false
+    //   // this.completed = true
+    // },
+    // allDone () {
+    //   this.$store.dispatch('allDone')
+    //   // this.todos.forEach(todo => (todo.completed = true))
+    // },
+    // clearAllCompleted () {
+    //   this.$store.dispatch('clearAllCompleted')
+    //   // const uncompletedTodos = this.todos.filter(todo => !todo.completed)
+    //   // this.todos = uncompletedTodos
+    // }
   }
 }
 </script>
